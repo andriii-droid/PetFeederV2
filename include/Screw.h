@@ -18,7 +18,7 @@ class Screw
     { stepper.rotate(360 * numPortions * portionSize); }
     //Rotates the Screw so Much, that the specified Number of Portions are dispensed
 
-    bool isMoving()
+    bool isStopped()
     { 
         bool flag;
         if (stepper.getCurrentState() == 0) flag = true; 
@@ -26,7 +26,7 @@ class Screw
     
         return flag;        
     }
-    //True if the Screw is Moving
+    //True if the Screw is Stopped
 
     private:
     BasicStepperDriver stepper;
