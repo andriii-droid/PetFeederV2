@@ -7,15 +7,18 @@
 class Screw
 {
     public:
-    Screw(int dir, int step, int rpm = 20, int initPortionSize = 5, int microSteps = 4, int motorSteps = 200)
-    :stepper{motorSteps, dir, step}, portionSize{initPortionSize}
+    Screw(int dir, int step, int initPortionSize = 5, int initRpm = 20, int initMicroSteps = 4, int motorSteps = 200)
+    :stepper{motorSteps, dir, step}, portionSize{initPortionSize}, rpm{initRpm}, microSteps{initMicroSteps}
     {
-        stepper.begin(rpm, microSteps);
     }
-    //Initializes a Stepper with the given Arguments and calls .begin()
+    //Initializes a Stepper with the given Arguments 
+
+    void begin()
+    { stepper.begin(rpm, microSteps); }
+    // calls .begin()
 
     void dispensePortion(int numPortions = 1)
-    { stepper.rotate(360 * numPortions * portionSize); }
+    { stepper.move(200 * numPortions * portionSize); }
     //Rotates the Screw so Much, that the specified Number of Portions are dispensed
 
     bool isStopped()
@@ -32,4 +35,6 @@ class Screw
     BasicStepperDriver stepper;
     int portionSize;
     //Number of Screw Rotations for one Portion
+    int rpm;
+    int microSteps;
 };
