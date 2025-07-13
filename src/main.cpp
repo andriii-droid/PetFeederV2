@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <Screw.h>
 
-Screw testScrew{4, 5, 1};
+Screw testScrew{4, 5, 3, 1};
 
 void setup() 
 {
