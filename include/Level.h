@@ -4,15 +4,24 @@
 
 class Strip
 {
+    public:
+    Strip();
+
+    void begin();
+
+    void allWhite();
+
+    void showPercentile();
+
+    private:
+    int numPixels;
 
 };
 
 class Sensor
 {
     public:
-    void begin();
-
-    int getLevel();
+    int calcLevel();
 
     private:
     const int sensPin[11] = {   A2, A3, A4, A5, A6, A7, 
@@ -23,5 +32,7 @@ class Sensor
 
 class Level: public Sensor, public Strip
 {
+    Level();
 
+    int getlevel();
 };
