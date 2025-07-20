@@ -3,8 +3,6 @@
 #include <Arduino.h>
 #include "EasyNextionLibrary.h"
 
-
-
 class Display
 {
     public:
@@ -21,29 +19,41 @@ class Display
     }
     //Calls .begin() Function
 
-    void displayLevel(int level);
+    void displayLevel(int level) {
+        Nextion.writeNum("f0.val", level);
+    }
     //Prints the Level onto the Display
 
     void syncTime(int time);
     //Updates the RTC on the Nextion Display
 
-    int getFeedAmount(mealType meal);
+    int getFeedAmount(mealType meal) {
+        return  Nextion.readNumber(pages[meal].amount);
+    }
     //Gets the Amount of Feed for a specific meal
 
+    //Necessary??
     void setFeedAmount(mealType meal, int amount);
     //Sets the Amount of Feed for a specific meal
 
-    int getFeedTime(mealType meal);
+    String getFeedTime(mealType meal) { //TODOS Return in proper Time Format
+        return  Nextion.readStr(pages[meal].time);
+    }
     //Gets the Amount of Feed for a specific meal
 
+    //Necessary??
     void setFeedTime(mealType meal, int time);
     //Sets the Amount of Feed for a specific meal
 
-    bool isActive(mealType meal);
+    int isActive(mealType meal) {
+        return  Nextion.readNumber(pages[meal].active);
+    }
     //returns TRUE if Meal is Active
 
-    void setActive(mealType meal, bool active);
+    //Necessary??
+    void setActive(mealType meal, bool active); 
     //sets Active for specified meal to specified value
+
 
     private:
     EasyNex Nextion{Serial2};
@@ -57,9 +67,11 @@ class Display
         String time;
     };
 
-    Page pages[3] = {   {"fs0.val", "ut0.txt", "ak0.val"}, 
-                        {"fs1.val", "ut1.txt", "ak1.val"},     
-                        {"fs2.val", "ut2.txt", "ak2.val"}};
+    Page pages[3] = {   {"page0.fs0.val", "page0.ac0.val", "page0.ut0.val"}, 
+                        {"page1.fs1.val", "page1.ac1.val", "page1.ut1.val"},     
+                        {"page2.fs2.val", "page2.ac2.val", "page2.ut2.val"}};
     //Ids to accsess the Variables in Display
-    
+
+
+
 };
